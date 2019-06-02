@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    
+    <changeSet id="2019_05_29" author="abhinav_ashish">
+        <createSequence sequenceName="hibernate_sequence" incrementBy="1" minValue="1" startValue="1"/>
+    </changeSet>
+    
+    <changeSet id="2019_05_29_abhinav_create_table" author="abhinav_ashish">
+        <createTable tableName="rider">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rider_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="modified_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(1024)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="trips" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="numeric(3,2)" defaultValueNumeric="3.00">
+                <constraints nullable="false"/>
+            </column>
+            <column name="engaged" type="boolean" defaultValueNumeric="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unique_id" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+
+    <changeSet id="2019_06_01_create" author="abhinavashish">
+        <createTable tableName="driver_location">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="driver_loc_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="modified_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="latitude" type="numeric(9,6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="numeric(9,6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accuracy" type="numeric(9,6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="raw_data" type="varchar(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2019_06_01_driver" author="abhinavashish">
+        <createTable tableName="driver">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="driver_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="modified_at" type="TIMESTAMP(6) WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(1024)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="trips_completed" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="numeric(3,2)" defaultValueNumeric="3.00">
+                <constraints nullable="false"/>
+            </column>
+            <column name="engaged" type="boolean" defaultValueNumeric="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unique_id" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="vehicle_number" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="vehicle_type" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="2019_06_02_indices" author="abhinavashish">
+        <addUniqueConstraint tableName="rider" columnNames="unique_id" constraintName="rider_unique_idx"/>
+        <addUniqueConstraint tableName="driver" columnNames="unique_id" constraintName="driver_unique_idx"/>
+        <createIndex tableName="driver" indexName="driver_engaged_idx">
+            <column name="engaged"/>
+        </createIndex>
+        <createIndex tableName="driver_location" indexName="driver_loc_driver_id_time_idx">
+            <column name="driver_id"/>
+            <column name="time"/>
+        </createIndex>
+    </changeSet>
+
+
+
+</databaseChangeLog>

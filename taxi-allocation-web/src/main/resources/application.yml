@@ -1,0 +1,31 @@
+server:
+  servlet:
+    context-path: /taxi
+  port: 8081
+
+
+logging:
+  file: /opt/apps/taxitesting/logs/taxi.log
+
+spring:
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taxitesting
+    type: com.zaxxer.hikari.HikariDataSource
+    username: abhinav
+    password: capital
+    platform: POSTGRESQL
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 5000
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+    open-in-view: false
+
+trip:
+  config:
+    radiusInKm: 10.0
+    locationConsiderationTimeInMinute: 100
