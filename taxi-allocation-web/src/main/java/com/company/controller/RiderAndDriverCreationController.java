@@ -21,12 +21,22 @@ public class RiderAndDriverCreationController {
         this.riderAndDriverCreationService = riderAndDriverCreationService;
     }
 
+    /**
+     * API to insert  new rider details
+     * @param riderModel
+     * @return
+     */
     @PostMapping(value = "/insert/rider", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RiderModel insertRider(@RequestBody RiderModel riderModel){
         return riderAndDriverCreationService.createRider(riderModel);
 
     }
 
+    /**
+     * API to insert new driver details
+     * @param driverModel
+     * @return
+     */
     @PostMapping(value = "/insert/driver", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DriverModel insertDriver(@RequestBody DriverModel driverModel){
         return riderAndDriverCreationService.createDriver(driverModel);

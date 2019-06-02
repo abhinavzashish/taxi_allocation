@@ -28,4 +28,4 @@ spring:
 trip:
   config:
     radiusInKm: 10.0
-    locationConsiderationTimeInMinute: 100
+    locationConsiderationTimeInMinute: 10

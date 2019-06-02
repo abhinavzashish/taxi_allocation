@@ -19,23 +19,26 @@ public class DriverLocationUpdateService {
 
     private final DriverLocationDao driverLocationDao;
     private final DriverDao driverDao;
+    private final Gson gson;
 
     @Autowired
-    public DriverLocationUpdateService(DriverLocationDao driverLocationDao, DriverDao driverDao) {
+    public DriverLocationUpdateService(DriverLocationDao driverLocationDao, DriverDao driverDao, Gson gson) {
         this.driverLocationDao = driverLocationDao;
         this.driverDao = driverDao;
+        this.gson = gson;
     }
 
     public boolean updateDriverLocation(DriverLocationModel locationModel) throws Exception {
         Driver driver = driverDao.findByUniqueId(locationModel.getDriverUniqueId());
         if(driver==null){
+            //TODO: create custom exception classes
             throw new Exception("Invalid driver Details.");
         }
         DriverLocation databaseDriverLocation = driverLocationDao.findByDriver(driver);
         databaseDriverLocation = MappingUtil.convertDriverLocationModelToEntity(locationModel, databaseDriverLocation);
         databaseDriverLocation.setDriverId(driver.getId());
         databaseDriverLocation.setTime(new Date().toInstant().getEpochSecond());
-        databaseDriverLocation.setRawData(new Gson().toJson(locationModel));
+        databaseDriverLocation.setRawData(gson.toJson(locationModel));
         driverLocationDao.saveOrUpdate(databaseDriverLocation);
         return true;
     }

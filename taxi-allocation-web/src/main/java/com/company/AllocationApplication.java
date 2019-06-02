@@ -42,8 +42,5 @@ public class AllocationApplication {
         return restTemplate;
     }
 
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory(){
-//        EntityManagerFactory entityManagerFactory = new E
-//    }
+
 }

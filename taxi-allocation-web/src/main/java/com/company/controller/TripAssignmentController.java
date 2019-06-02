@@ -21,6 +21,13 @@ public class TripAssignmentController {
         this.tripAssignmentService = tripAssignmentService;
     }
 
+    /**
+     * searches for a suitable driver for the trip requested by rider.
+     * If driver is found, the driver and the rider are marked as engaged
+     * @param rideInputModel
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value = "/search/trip" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DriverModel getRide(@RequestBody RideInputModel rideInputModel) throws Exception {
         tripAssignmentService.validateRider(rideInputModel);

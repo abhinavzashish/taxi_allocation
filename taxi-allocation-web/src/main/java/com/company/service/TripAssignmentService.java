@@ -67,6 +67,7 @@ public class TripAssignmentService {
             driverDao.saveOrUpdate(byUniqueId);
             Rider rider = riderDao.findByUniqueId(rideInputModel.getRiderId());
             rider.setEngaged(true);
+            //TODO: create a record in the Trip table
             return driverModel;
         }
         return null;
@@ -81,15 +82,24 @@ public class TripAssignmentService {
         return filteredDrivers;
     }
 
+    /**
+     * the gating criteria are checked to pick the most suitable driver for the trip.
+     * @param dl
+     * @param filteredDrivers
+     * @param rideInputModel
+     * @param distance
+     */
     private void applyRestrictions(DriverLocation dl, List<DriverModel> filteredDrivers, RideInputModel rideInputModel, double distance) {
         Double actualDistance = DistanceUtil.distanceBetweenLatLong(rideInputModel.getSourceLatitude(), dl.getLatitude(), rideInputModel.getSourceLongitude(), dl.getLongitude());
         if(actualDistance<=distance) {
             filteredDrivers.add(getConvertedDriverModel(dl, actualDistance));
         }
+        //TODO: the conditions like rating ratio, preferred transport, payment method can be checked here
+
         if(!filteredDrivers.isEmpty()){
             filteredDrivers.sort(Comparator.comparing(o -> o.getDriverLocationModel().getTime()));
         }
-        System.out.println(filteredDrivers);
+//        System.out.println(filteredDrivers);
     }
 
     private DriverModel getConvertedDriverModel(DriverLocation dl, double distance) {

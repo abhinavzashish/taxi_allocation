@@ -20,6 +20,12 @@ public class DriverLocationController {
         this.locationUpdateService = locationUpdateService;
     }
 
+    /**
+     * API for updating the current location of the driver
+     * @param locationModel input model
+     * @return same model with update flag
+     * @throws Exception if driver id or field values are wrong
+     */
     @PostMapping(value = "/populate/location" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DriverLocationModel updateCurrentLocation(@RequestBody DriverLocationModel locationModel) throws Exception {
         boolean updated = locationUpdateService.updateDriverLocation(locationModel);

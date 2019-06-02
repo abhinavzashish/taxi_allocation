@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class DriverLocationImpl extends GenericDaoImpl<DriverLocation, Integer> implements DriverLocationDao {
+public class DriverLocationDaoImpl extends GenericDaoImpl<DriverLocation, Integer> implements DriverLocationDao {
 
 
     @Override
